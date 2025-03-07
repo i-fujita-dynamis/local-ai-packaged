@@ -47,7 +47,7 @@ services:
     ports:
         - 3001:3001
     extra_hosts:
-      - "host.docker.internal:host-gateway"        
+      - "host.docker.internal:host-gateway"
     volumes:
         - ~/.flowise:/root/.flowise
     entrypoint: /bin/sh -c "sleep 3; flowise start"
@@ -71,7 +71,7 @@ services:
       - "-c"
       - "n8n import:credentials --separate --input=/backup/credentials && n8n import:workflow --separate --input=/backup/workflows"
     volumes:
-      - ./n8n/backup:/backup  
+      - ./n8n/backup:/backup
 
   n8n:
     <<: *service-n8n
@@ -82,7 +82,7 @@ services:
     volumes:
       - n8n_storage:/home/node/.n8n
       - ./n8n/backup:/backup
-      - ./shared:/data/shared
+      - ./shared:/data/shared:rw
     depends_on:
       n8n-import:
         condition: service_completed_successfully
